@@ -2,23 +2,23 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>回文树学习笔记 - Hexo</title>
+<title>算法模板 - Hexo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="回文树是个很神奇的数据结构。">
+    <meta name="description" content="字符串后缀自动机例题 后缀数组例题 AC自动机例题 KMP、Z Function例题 数据结构线段树例题 树状数组例题 平衡树例题1 例题2 树套树例题 并查集例题1 例题2 网络流最大流例题 最小费用流例题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="回文树学习笔记">
-<meta property="og:url" content="http://yoursite.com/2019/02/15/palitree/index.html">
+<meta property="og:title" content="算法模板">
+<meta property="og:url" content="http://yoursite.com/2019/04/04/template/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="回文树是个很神奇的数据结构。">
+<meta property="og:description" content="字符串后缀自动机例题 后缀数组例题 AC自动机例题 KMP、Z Function例题 数据结构线段树例题 树状数组例题 平衡树例题1 例题2 树套树例题 并查集例题1 例题2 网络流最大流例题 最小费用流例题">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-02-15T13:42:44.155Z">
+<meta property="og:updated_time" content="2019-04-04T11:18:12.044Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="回文树学习笔记">
-<meta name="twitter:description" content="回文树是个很神奇的数据结构。">
+<meta name="twitter:title" content="算法模板">
+<meta name="twitter:description" content="字符串后缀自动机例题 后缀数组例题 AC自动机例题 KMP、Z Function例题 数据结构线段树例题 树状数组例题 平衡树例题1 例题2 树套树例题 并查集例题1 例题2 网络流最大流例题 最小费用流例题">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -93,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="回文树学习笔记" height="28">
+                <img src="/images/logo.svg" alt="算法模板" height="28">
             
             </a>
         </div>
@@ -144,13 +144,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-02-15T03:33:45.000Z">2019-02-15</time>
+                <time class="level-item has-text-grey" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 minutes read (About 415 words)
+                    a minute read (About 141 words)
                 </span>
                 
                 
@@ -159,22 +159,23 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                回文树学习笔记
+                算法模板
             
         </h1>
         <div class="content">
-            <p>回文树是个很神奇的数据结构。</p>
-<a id="more"></a>
-<p><a href="https://codeforces.com/contest/17/problem/E" target="_blank" rel="noopener">这</a>道题需要用到回文树这个数据结构。</p>
-<p>这篇博文只介绍回文树。</p>
-<p>回文树的节点表示一个回文串。</p>
-<p>首先我们知道，回文串分长度为偶数和奇数两种。</p>
-<p>回文树上必定有长度为$0$与$1$的节点。但是为了方便，我们把所有长度为$1$的节点挂在一个”长度”为$-1$的节点下，就可以像其它的节点一样处理。</p>
-<p>与AC自动机一样，回文树的节点也有$fail$指针。每个节点的$fail$指向其最长回文后缀。</p>
-<p>构建回文树的方式是一直向当前串的末尾添加字符。</p>
-<p>假设当前串的最长回文后缀在回文树上的节点是$u$，将要添加的字符是$c$，则查看$u$前面一个字母是否是$c$，如果不是则找$u$的$fail$，不行再找，直到$u$前一个字母为$c$为止，就将$u$与新建的这个节点连边，并更新这个节点的$fail$为$u$的$fail$一直找$fail$直到其前第一个字母为$c$，走$c$的边之后的节点。</p>
-<p>然后就要证为什么只新建一个节点了。</p>
-<p>假设添加这个字符后有两个新的回文串$S[l_1\dots i]$和$S[l_2\dots i]$，$l_1&lt;l_2$，那么根据回文串的性质，$S[l_1\dots l_1-l_2+i]=S[l_2\dots i]$。所以其实只新增了一个回文串。</p>
+            <h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><h5 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h5><p><a href="https://www.luogu.org/problemnew/show/P3804" target="_blank" rel="noopener">例题</a></p>
+<h5 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h5><p><a href="https://loj.ac/problem/111" target="_blank" rel="noopener">例题</a></p>
+<h5 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h5><p><a href="https://www.luogu.org/problemnew/show/P3808" target="_blank" rel="noopener">例题</a></p>
+<h5 id="KMP、Z-Function"><a href="#KMP、Z-Function" class="headerlink" title="KMP、Z Function"></a>KMP、Z Function</h5><p><a href="https://loj.ac/problem/103" target="_blank" rel="noopener">例题</a></p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><h5 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h5><p><a href="https://www.luogu.org/problemnew/show/P3372" target="_blank" rel="noopener">例题</a></p>
+<h5 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h5><p><a href="https://www.luogu.org/problemnew/show/P3374" target="_blank" rel="noopener">例题</a></p>
+<h5 id="平衡树"><a href="#平衡树" class="headerlink" title="平衡树"></a>平衡树</h5><p><a href="https://loj.ac/problem/104" target="_blank" rel="noopener">例题1</a></p>
+<p><a href="https://loj.ac/problem/105" target="_blank" rel="noopener">例题2</a></p>
+<h5 id="树套树"><a href="#树套树" class="headerlink" title="树套树"></a>树套树</h5><p><a href="https://loj.ac/problem/106" target="_blank" rel="noopener">例题</a></p>
+<h5 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h5><p><a href="https://loj.ac/problem/109" target="_blank" rel="noopener">例题1</a></p>
+<p><a href="https://loj.ac/problem/123" target="_blank" rel="noopener">例题2</a></p>
+<h4 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h4><h5 id="最大流"><a href="#最大流" class="headerlink" title="最大流"></a>最大流</h5><p><a href="https://loj.ac/problem/101" target="_blank" rel="noopener">例题</a></p>
+<h5 id="最小费用流"><a href="#最小费用流" class="headerlink" title="最小费用流"></a>最小费用流</h5><p><a href="https://loj.ac/problem/102" target="_blank" rel="noopener">例题</a></p>
 
         </div>
         
@@ -190,17 +191,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/02/22/splay/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Splay学习笔记</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/02/12/acautomaton/">
-                <span class="level-item">AC自动机学习笔记</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/03/hld/">
+                <span class="level-item">树链剖分学习笔记</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -710,7 +704,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="回文树学习笔记" height="28">
+                    <img src="/images/logo.svg" alt="算法模板" height="28">
                 
                 </a>
                 <p class="is-size-7">

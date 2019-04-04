@@ -166,25 +166,25 @@
             <p>Splay是个很神奇的数据结构。</p>
 <a id="more"></a>
 <p><a href="https://www.luogu.org/problemnew/show/P3391" target="_blank" rel="noopener">这</a>是一道模板题。</p>
-<p>这道题可以用$Splay$，$FHQ treap$，$\dots$来解决。</p>
+<p>这道题可以用$Splay$，$FHQ\ treap$，$\dots$来解决。</p>
 <h4 id="Splay的基本操作"><a href="#Splay的基本操作" class="headerlink" title="Splay的基本操作"></a>Splay的基本操作</h4><p>首先我们考虑正常的二叉查找树，添加的部分只是在查询到某个节点的时候一直将该节点向上左旋/右旋到根。</p>
-<p>这样看起来并没有什么作用，但是一些神仙们就据此发明了$Splay Tree$。</p>
-<p>$Splay$并不需要像其他的平衡树那样对于每一个节点多维护一个平衡因子（就是保证树平衡的东西辣），而是通过神奇的旋转使得其均摊复杂度为$O(log n)$。</p>
+<p>这样看起来并没有什么作用，但是一些神仙们就据此发明了$Splay\ Tree$。</p>
+<p>$Splay$并不需要像其他的平衡树那样对于每一个节点多维护一个平衡因子（就是保证树平衡的东西辣），而是通过神奇的旋转使得其均摊复杂度为$O(log\ n)$。</p>
 <p>旋转有两种情况，分别被叫做$Zig-Zig​$和$Zig-Zag​$：</p>
 <p><img src="splay/a.bmp" alt="zig-zig &amp; zig-zag"></p>
 <p>$A、B、C、D$都是子树，$x、y、z$是节点。</p>
 <p>然后每次访问到$x$这个节点的时候就从底下一路将其转到上面即可。</p>
 <p>最重要的就是左旋、右旋的$rotate$函数和将$x$转到现在$t$所在位置的$splay$函数。</p>
 <p>$rotate$函数十分厉害，把左旋和右旋放到了一起：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> &amp;t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> y = node[x].fa, z = node[y].fa;</span><br><span class="line">    <span class="keyword">int</span> tp = node[y].ch[<span class="number">1</span>] == x;</span><br><span class="line">    <span class="keyword">if</span> (y == t) t = x;</span><br><span class="line">    <span class="keyword">else</span> node[z].ch[node[z].ch[<span class="number">1</span>] == y] = x;</span><br><span class="line">    node[x].fa = z; node[y].fa = x;</span><br><span class="line">    node[y].ch[tp] = node[x].ch[tp ^ <span class="number">1</span>];</span><br><span class="line">    node[node[y].ch[tp]].fa = y;</span><br><span class="line">    node[x].ch[tp ^ <span class="number">1</span>] = y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> &amp;t)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> y = node[x].fa, z = node[y].fa;</span><br><span class="line">    <span class="hljs-keyword">int</span> tp = node[y].ch[<span class="hljs-number">1</span>] == x;</span><br><span class="line">    <span class="hljs-keyword">if</span> (y == t) t = x;</span><br><span class="line">    <span class="hljs-keyword">else</span> node[z].ch[node[z].ch[<span class="hljs-number">1</span>] == y] = x;</span><br><span class="line">    node[x].fa = z; node[y].fa = x;</span><br><span class="line">    node[y].ch[tp] = node[x].ch[tp ^ <span class="hljs-number">1</span>];</span><br><span class="line">    node[node[y].ch[tp]].fa = y;</span><br><span class="line">    node[x].ch[tp ^ <span class="hljs-number">1</span>] = y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个函数的作用是将$x$旋转到原本是其父亲所在的位置。</p>
 <p>先找到$x$的父亲$y$，$x$的祖父$z$，判断$x$是$y$的左儿子还是右儿子（$tp$），并且将$z$原来是$y$的儿子改为$x$</p>
 <p>然后改一下$x$和$y$的父子关系，以及把$x$原来的左/右子树（是和$tp$不一样的那个）给$y$。</p>
 <p>$splay$函数就是单纯的向上旋转，但是也很巧妙地将原本要判断的4种情况改为了直接判断$x、y、z$是否在一条直线上，非常厉害：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">splay</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> &amp;t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x != t) &#123;</span><br><span class="line">        <span class="keyword">int</span> y = node[x].fa, z = node[y].fa;</span><br><span class="line">        <span class="keyword">if</span> (y != t) rotate((node[z].ch[<span class="number">1</span>] == y) ^ (node[y].ch[<span class="number">1</span>] == x) ? x : y, t);</span><br><span class="line">        rotate(x, t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">splay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> &amp;t)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">while</span> (x != t) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = node[x].fa, z = node[y].fa;</span><br><span class="line">        <span class="hljs-keyword">if</span> (y != t) rotate((node[z].ch[<span class="hljs-number">1</span>] == y) ^ (node[y].ch[<span class="hljs-number">1</span>] == x) ? x : y, t);</span><br><span class="line">        rotate(x, t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后插入、删除都和正常的二叉查找树无异，只是别忘了将要访问的节点先$splay$到根再说。</p>
-<h4 id="Splay的高级操作"><a href="#Splay的高级操作" class="headerlink" title="Splay的高级操作"></a>Splay的高级操作</h4><p>和$FHQ treap$一样，$Splay$也支持区间操作。</p>
-<p>不同的是，$FHQ treap$是将要修改的区间所对应的子树硬生生$split$出来，而$Splay$通过将要改的区间$[l,r]$中$l-1$旋转到根，再把$r+1$旋转到$l-1$的右儿子，就会发现$r+1$的左子树就是要更改的区间。其中的道理也是很简单的，就是利用了二叉查找树的性质：$[l,r]$中的每个数都大于$l-1$，小于$r+1$。然后就可以在那个子树中打上要修改的标记了。也用$pushdown$操作来将标记下推。</p>
+<h4 id="Splay的高级操作"><a href="#Splay的高级操作" class="headerlink" title="Splay的高级操作"></a>Splay的高级操作</h4><p>和$FHQ\ treap$一样，$Splay$也支持区间操作。</p>
+<p>不同的是，$FHQ\ treap$是将要修改的区间所对应的子树硬生生$split$出来，而$Splay$通过将要改的区间$[l,r]$中$l-1$旋转到根，再把$r+1$旋转到$l-1$的右儿子，就会发现$r+1$的左子树就是要更改的区间。其中的道理也是很简单的，就是利用了二叉查找树的性质：$[l,r]$中的每个数都大于$l-1$，小于$r+1$。然后就可以在那个子树中打上要修改的标记了。也用$pushdown$操作来将标记下推。</p>
 <p>要注意的是，如果儿子的值会影响父亲的，要在$rotate$的最后加上上浮语句，将$x、y、z$都更改（它们的儿子都发生了变化）。</p>
 <p><a href="https://github.com/Denverjin/Algorithm/blob/master/Splay.cpp" target="_blank" rel="noopener">代码</a></p>
 
@@ -264,7 +264,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        14
                     </p>
                 </div>
             </div>
@@ -356,6 +356,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/04/template/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="算法模板">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time></div>
+                    <a href="/2019/04/04/template/" class="has-link-black-ter is-size-6">算法模板</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/03/hld/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="树链剖分学习笔记">
@@ -430,25 +449,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/02/12/acautomaton/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AC自动机学习笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-12T09:04:26.000Z">2019-02-12</time></div>
-                    <a href="/2019/02/12/acautomaton/" class="has-link-black-ter is-size-6">AC自动机学习笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -467,7 +467,7 @@
                     <span class="level-item">April 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -543,6 +543,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/04/template/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="算法模板">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time></div>
+                    <a href="/2019/04/04/template/" class="has-link-black-ter is-size-6">算法模板</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/03/hld/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="树链剖分学习笔记">
@@ -617,25 +636,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/02/12/acautomaton/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AC自动机学习笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-12T09:04:26.000Z">2019-02-12</time></div>
-                    <a href="/2019/02/12/acautomaton/" class="has-link-black-ter is-size-6">AC自动机学习笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -654,7 +654,7 @@
                     <span class="level-item">April 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>

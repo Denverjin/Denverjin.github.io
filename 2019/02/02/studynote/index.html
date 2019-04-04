@@ -15,7 +15,7 @@
 <meta property="og:description" content="我的学习笔记。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-04T01:52:08.264Z">
+<meta property="og:updated_time" content="2019-04-04T11:10:22.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习笔记">
 <meta name="twitter:description" content="我的学习笔记。">
@@ -150,7 +150,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 hours read (About 28130 words)
+                    3 hours read (About 28636 words)
                 </span>
                 
                 
@@ -1077,7 +1077,31 @@
 <p>即$dp(i,j)=dp(i,j) \vee dp(i-1,j-V_i)$</p>
 <p>我第一开始笨笨地只是根所在的放到黑色，其它给白色。。。</p>
 <p>其实这是没想清楚的体现。</p>
-<h4 id="2019年4月1日"><a href="#2019年4月1日" class="headerlink" title="2019年4月1日"></a>2019年4月1日</h4><h5 id="UOJ-345"><a href="#UOJ-345" class="headerlink" title="UOJ 345"></a>UOJ 345</h5><h4 id="2019年4月3日"><a href="#2019年4月3日" class="headerlink" title="2019年4月3日"></a>2019年4月3日</h4><h5 id="LOJ-2144-84pts"><a href="#LOJ-2144-84pts" class="headerlink" title="LOJ 2144 84pts"></a>LOJ 2144 84pts</h5><p>首先$op2$很简单。直接并查集一搞就好了（话说我现在什么东西都要写个并查集有点。。。）</p>
+<h4 id="2019年4月1日"><a href="#2019年4月1日" class="headerlink" title="2019年4月1日"></a>2019年4月1日</h4><h5 id="UOJ-345"><a href="#UOJ-345" class="headerlink" title="UOJ 345"></a>UOJ 345</h5><p><del>我会10分！</del></p>
+<p>我们先把主链给剖出来。主链：从根开始一直往下走子树最大的儿子所构成的链</p>
+<p>我们看如果我们要把$u$硬推到主链底下需要多少$u$的子树外部节点的帮助，记为$need_u$（u在主链上）。</p>
+<p>那么$need_u=min\ need_v-(size_u-size_v-1$（这个是为了$u$本身减去的）$-1$（这个是为了把$u$推下一条边减去的）$)$</p>
+<p>下面我们就看怎么把每一个主链外的节点推啊推到主链底部。</p>
+<p>首先我们需要把它推到主链上。</p>
+<p>记$u$的祖先中第一个在主链上的节点为$belong_u$。</p>
+<p>下面就是看我们是否还需要再上推一点才够把它推到主链底下。</p>
+<p>那就要计算我们将$u$推到某个在主链上的节点$v$再将其推下去到主链底端的代价。</p>
+<p>是$dep_u-dep_v+\dots$（其中$\dots$表示的是主链最底端的深度减去$dep_v$）。</p>
+<p>那么我们既然还需要把$u$推到底端后还推回到$v$，</p>
+<p>就说明我们需要把$v$子树次大的儿子的子树中所有的给用光。</p>
+<p>那我们可能还会剩下一点子树最大的儿子的子树，就是另外一个子问题了。</p>
+<p>按照这样想，$dep_u-(dep_v+size_{largest_v}-size_{secondLargest_v})&gt;0$。</p>
+<p>所以对于一个$u$我们要找出最小的满足此条件的$v$，</p>
+<p>就需要记录对于每一个$x$，$dep_v+size_{largest_v}-size_{secondLargest_v}&gt;x$的最浅的$v$。</p>
+<p>（因为要离根越近越好啊</p>
+<p>那么分类讨论一下：</p>
+<ul>
+<li>$belong_u$甚至在$v$之上：那么只能推到$belong_u$。。。</li>
+<li>$belong_u$就是$u$：直接推下去就可以了。。。</li>
+<li>正常情况：无。</li>
+</ul>
+<p>然后看看$need_u$够不够就可以了。</p>
+<h4 id="2019年4月3日"><a href="#2019年4月3日" class="headerlink" title="2019年4月3日"></a>2019年4月3日</h4><h5 id="LOJ-2144-84pts"><a href="#LOJ-2144-84pts" class="headerlink" title="LOJ 2144 84pts"></a>LOJ 2144 84pts</h5><p>首先$op2$很简单。直接并查集一搞就好了（话说我现在什么东西都要写个并查集有点。。。）</p>
 <p>然后$op0$我不会，就直接$O(n^2)$枚举一下$P$这个人的路径，然后用$op1$的操作求答案。</p>
 <p>所以只是看$op1$的复杂度决定了分数（逃。</p>
 <p>我第一开始写的是$O(n^3)$的鬼暴力，然后拿了$60pts$跑路了。。。</p>
@@ -1216,7 +1240,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        14
                     </p>
                 </div>
             </div>
@@ -1308,6 +1332,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/04/template/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="算法模板">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time></div>
+                    <a href="/2019/04/04/template/" class="has-link-black-ter is-size-6">算法模板</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/03/hld/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="树链剖分学习笔记">
@@ -1382,25 +1425,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/02/12/acautomaton/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AC自动机学习笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-12T09:04:26.000Z">2019-02-12</time></div>
-                    <a href="/2019/02/12/acautomaton/" class="has-link-black-ter is-size-6">AC自动机学习笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1419,7 +1443,7 @@
                     <span class="level-item">April 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1495,6 +1519,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/04/template/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="算法模板">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time></div>
+                    <a href="/2019/04/04/template/" class="has-link-black-ter is-size-6">算法模板</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/03/hld/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="树链剖分学习笔记">
@@ -1569,25 +1612,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/02/12/acautomaton/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AC自动机学习笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-12T09:04:26.000Z">2019-02-12</time></div>
-                    <a href="/2019/02/12/acautomaton/" class="has-link-black-ter is-size-6">AC自动机学习笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1606,7 +1630,7 @@
                     <span class="level-item">April 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>

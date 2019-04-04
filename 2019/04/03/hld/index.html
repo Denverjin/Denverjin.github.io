@@ -15,7 +15,7 @@
 <meta property="og:description" content="树链剖分是一种很神奇的算法。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-03T12:16:11.282Z">
+<meta property="og:updated_time" content="2019-04-04T10:53:23.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树链剖分学习笔记">
 <meta name="twitter:description" content="树链剖分是一种很神奇的算法。">
@@ -150,7 +150,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    a few seconds read (About 67 words)
+                    3 minutes read (About 477 words)
                 </span>
                 
                 
@@ -168,7 +168,24 @@
 <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>重儿子：每个节点的儿子中子树大小最大的一个。</p>
 <p>重边：每个节点连接到重儿子的边。</p>
 <p>轻边：不是重边的边。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>首先我们找出所有重链（即重边组成的链），</p>
+<p>然后就可以发现一个性质：从$u$点到$v$点的路径上只有不超过$O(log\ n)$条重链。</p>
+<p>所以我们可以用线段树对每一条重链进行维护。</p>
+<p>维护的信息多种多样：可能是每个点的权值、每个点到父亲的那条边的权值。</p>
+<p>然后在修改、查询的时候就可以用$O(log^2\ n)$的时间操作。</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><h5 id="Codeforces-343-D"><a href="#Codeforces-343-D" class="headerlink" title="Codeforces 343 D"></a>Codeforces 343 D</h5><p>直接用线段树维护每个节点是否有水。（话说树状数组就可以了？？？</p>
+<h5 id="Codeforces-191-C"><a href="#Codeforces-191-C" class="headerlink" title="Codeforces 191 C"></a>Codeforces 191 C</h5><p>直接用线段树维护每个节点经过了多少次。</p>
+<h5 id="Codeforces-372-D"><a href="#Codeforces-372-D" class="headerlink" title="Codeforces 372 D"></a>Codeforces 372 D</h5><p>这个稍微麻烦点。</p>
+<p>首先我们得$two\ pointers$扫包含$[l,r]$内的点。</p>
+<p>然后就是要快速处理添加一个点到集合内并且把它链到某一个lca上面去/删除一个点并把它到某个lca的链删掉。</p>
+<p>这玩意用树链剖分维护一下每个点选不选就好了。</p>
+<h5 id="Codeforces-593-D"><a href="#Codeforces-593-D" class="headerlink" title="Codeforces 593 D"></a>Codeforces 593 D</h5><p>这个用线段树维护每个点权值的区间乘积。如果超过$10^{18}$就把它设成$inf$。除的时候就直接$0$了。</p>
+<p>话说判断的过程也是蛮有趣的。。。</p>
+<h5 id="UOJ-128"><a href="#UOJ-128" class="headerlink" title="UOJ 128"></a>UOJ 128</h5><p>直接用线段树维护每个软件的安装情况就好了。</p>
+<h4 id="扯淡"><a href="#扯淡" class="headerlink" title="扯淡"></a>扯淡</h4><p>话说LCT是个什么玩意。。。是不是就是动态的树链剖分啊。。。</p>
+<p><del>其实树链剖分写起来挺短的</del></p>
+<p><del>也就150行吧</del></p>
+
         </div>
         
         
@@ -182,6 +199,13 @@
 
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/04/04/template/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">算法模板</span>
+            </a>
+        </div>
         
         
         <div class="level-end">
@@ -238,7 +262,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        14
                     </p>
                 </div>
             </div>
@@ -330,6 +354,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/04/template/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="算法模板">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time></div>
+                    <a href="/2019/04/04/template/" class="has-link-black-ter is-size-6">算法模板</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/03/hld/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="树链剖分学习笔记">
@@ -404,25 +447,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/02/12/acautomaton/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AC自动机学习笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-12T09:04:26.000Z">2019-02-12</time></div>
-                    <a href="/2019/02/12/acautomaton/" class="has-link-black-ter is-size-6">AC自动机学习笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -441,7 +465,7 @@
                     <span class="level-item">April 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -517,6 +541,25 @@
         
         <article class="media">
             
+            <a href="/2019/04/04/template/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="算法模板">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-04T11:11:16.000Z">2019-04-04</time></div>
+                    <a href="/2019/04/04/template/" class="has-link-black-ter is-size-6">算法模板</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/04/03/hld/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="树链剖分学习笔记">
@@ -591,25 +634,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/02/12/acautomaton/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="AC自动机学习笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-12T09:04:26.000Z">2019-02-12</time></div>
-                    <a href="/2019/02/12/acautomaton/" class="has-link-black-ter is-size-6">AC自动机学习笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -628,7 +652,7 @@
                     <span class="level-item">April 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
