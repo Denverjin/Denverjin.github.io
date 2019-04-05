@@ -2,23 +2,23 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>线段树学习笔记 - Denverjin&#39;s Blog</title>
+<title>错误总结 - Denverjin&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="线段树是个很神奇的数据结构。">
+    <meta name="description" content="我的错误总结。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线段树学习笔记">
-<meta property="og:url" content="http://yoursite.com/2018/12/06/segmenttree/index.html">
+<meta property="og:title" content="错误总结">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/mistake/index.html">
 <meta property="og:site_name" content="Denverjin&#39;s Blog">
-<meta property="og:description" content="线段树是个很神奇的数据结构。">
+<meta property="og:description" content="我的错误总结。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-01-24T14:30:41.444Z">
+<meta property="og:updated_time" content="2019-04-05T11:42:19.920Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线段树学习笔记">
-<meta name="twitter:description" content="线段树是个很神奇的数据结构。">
+<meta name="twitter:title" content="错误总结">
+<meta name="twitter:description" content="我的错误总结。">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -93,7 +93,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="线段树学习笔记" height="28">
+                <img src="/images/logo.svg" alt="错误总结" height="28">
             
             </a>
         </div>
@@ -144,13 +144,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-12-06T08:11:32.000Z">2018-12-06</time>
+                <time class="level-item has-text-grey" datetime="2019-04-05T11:07:02.000Z">2019-04-05</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 576 words)
+                    a minute read (About 130 words)
                 </span>
                 
                 
@@ -159,29 +159,33 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                线段树学习笔记
+                错误总结
             
         </h1>
         <div class="content">
-            <p>线段树是个很神奇的数据结构。</p>
+            <p>我的错误总结。</p>
 <a id="more"></a>
-<p><strong>为了表述方便，假设n为2的幂，所有的log以2为底</strong></p>
-<h3 id="单点修改线段树"><a href="#单点修改线段树" class="headerlink" title="单点修改线段树"></a>单点修改线段树</h3><p>现在有一个<a href="https://www.luogu.org/problemnew/show/P3372" target="_blank" rel="noopener">问题</a>，我们应该怎么解决它呢？</p>
-<p>我们只用存储所有同次幂不相交的2的幂的长度的区间即可。可以证明这只有$2n$个。</p>
-<p>然后， 每一个大区间包含两个稍小一点的区间，可以从大区间到这两个小区间连边，于是构成了一个二叉树</p>
-<h4 id="单点修改"><a href="#单点修改" class="headerlink" title="单点修改"></a>单点修改</h4><p>单点修改的时候，所有包含此数的区间的和都会变动，所以我们就依次从儿子向上更改即可，可以证明包含一个数的区间只有$log\ n$个</p>
-<h4 id="区间查询"><a href="#区间查询" class="headerlink" title="区间查询"></a>区间查询</h4><p>查询比较麻烦一点，因为我们可以通过不超过$O(log\ n)$个记录的区间可以构成任意一个查询的区间。</p>
-<p>如果一个区间的左右儿子都被用到了，那么这个区间必定会被用到。</p>
-<p>那么，就可以不停的左右分割，直到分成了一个个属于待查区间的区间，把它们加起来即可。</p>
-<h3 id="区间修改线段树"><a href="#区间修改线段树" class="headerlink" title="区间修改线段树"></a>区间修改线段树</h3><p>首先要理解的就是懒标记表示当前这个子树都需要<strong>同时</strong>干些什么事情（e.g. 同时加上某个值，同时赋某个值）。</p>
-<p>然后要设计一个下推操作，表示当前的区间的懒标记被处理了。</p>
-<p>这个下推操作很简单，就是把当前的区间的和根据懒标记更新，并且把左右儿子的懒标记更新</p>
-<h4 id="区间修改"><a href="#区间修改" class="headerlink" title="区间修改"></a>区间修改</h4><p>和查询一样把待查区间分成一个个小区间，然后对每个小区间打一个懒标记表示这个区间都要同时加上某个数，并且下推。</p>
-<h4 id="区间查询-1"><a href="#区间查询-1" class="headerlink" title="区间查询"></a>区间查询</h4><p>和原来一样，只是要注意下推</p>
-<h3 id="容易写错的地方"><a href="#容易写错的地方" class="headerlink" title="容易写错的地方"></a>容易写错的地方</h3><ol>
-<li>在区间修改时左右儿子都更新完了要把当前的区间的和更新</li>
+<ul>
+<li><code>long long</code>！！！</li>
+<li><code>memset(head,-1,sizeof head)</code>！！！</li>
+<li><code>pushup</code>！！！</li>
+<li><code>cin</code>、<code>scanf</code>混用！！！</li>
+<li>边角判断！！！</li>
+<li>特殊情况！！！</li>
+<li>浮点误差！！！</li>
+<li><code>n</code>和<code>m</code>写反！！！</li>
+<li>没事不要把数组往函数里面写！！！</li>
+<li><code>inf=0x3f3f3f3f</code>！！！</li>
+<li><code>lazy=-inf</code>！！！</li>
+<li><code>vector</code>$\rightarrow$前向星！！！</li>
+<li>数据结构初始化！！！</li>
+<li><code>0-start</code> or <code>1-start</code>！！！</li>
+</ul>
+<p>解决：</p>
+<ol>
+<li>对拍！！！</li>
+<li>逐行检查！！！</li>
 </ol>
-<p><a href="https://github.com/Denverjin/Algorithm/blob/master/SegmentTree.cpp" target="_blank" rel="noopener">代码</a></p>
 
         </div>
         
@@ -197,17 +201,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/12/07/treap/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">treap学习笔记</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2018/12/04/noip2018/">
-                <span class="level-item">NOIP2018游记</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/04/template/">
+                <span class="level-item">算法模板</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -717,7 +714,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="线段树学习笔记" height="28">
+                    <img src="/images/logo.svg" alt="错误总结" height="28">
                 
                 </a>
                 <p class="is-size-7">
