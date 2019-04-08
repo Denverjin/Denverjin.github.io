@@ -15,7 +15,7 @@
 <meta property="og:description" content="我的学习笔记。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-04T11:10:22.622Z">
+<meta property="og:updated_time" content="2019-04-08T04:56:41.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习笔记">
 <meta name="twitter:description" content="我的学习笔记。">
@@ -150,7 +150,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 hours read (About 28636 words)
+                    3 hours read (About 29074 words)
                 </span>
                 
                 
@@ -1163,6 +1163,36 @@
 <p>可惜我们只有$n$个方程，却有$n+1$个未知数。</p>
 <p>但注意到所有串第一次出现的概率之和为$1$就释然了。</p>
 <p>做完了。。。</p>
+<h4 id="2019年4月8日"><a href="#2019年4月8日" class="headerlink" title="2019年4月8日"></a>2019年4月8日</h4><h5 id="JSOI2019Round1Day2T2"><a href="#JSOI2019Round1Day2T2" class="headerlink" title="JSOI2019Round1Day2T2"></a>JSOI2019Round1Day2T2</h5><h6 id="算法1"><a href="#算法1" class="headerlink" title="算法1"></a>算法1</h6><p>$n \leq 16$。</p>
+<p>所以果断状压dp啊。</p>
+<p>考虑$dp(mask)$表示$mask$集合里的节点分配段之后最少总内存和。</p>
+<p>那么转移的时候枚举现在把$nmask$里的点都放到同一个内存段里面。</p>
+<p>为了在$O(n\times 3^n)$的时间内完成整个转移操作，</p>
+<p>我就用了$dfs$转移。。。所以代码就奇丑无比（循环调用</p>
+<p>然后注意可以用$dfs$序来判断$u$是不是$v$的祖先。</p>
+<p>（话说其实我们可以预处理一下，从每一个$v$往上跑。。。</p>
+<p>所以复杂度$O(n\times 3^n)$。</p>
+<p>预计得分：45</p>
+<p>实际得分：45</p>
+<h6 id="算法2"><a href="#算法2" class="headerlink" title="算法2"></a>算法2</h6><p>注意到链的部分分。</p>
+<p>我们假设链长这样：<code>u--1--v</code></p>
+<p>所以我们看怎么找$u$和$v$。</p>
+<p>不妨设$u$是深度最大的那个节点。</p>
+<p>那<code>u--1</code>的路径都用过了。</p>
+<p>剩余节点中的最深的就是$v$啊。</p>
+<p>那么再看怎么分组。</p>
+<p><del>理性思考一下</del></p>
+<p>只要在$u$到根的路径上最大的和$v$到根的路径上最大的配，</p>
+<p>次大的配，然后某个没了就单独一组。</p>
+<p>想一想为什么（<del>我才不会说我是弄了个数据看出来的呢</del></p>
+<p>就酱。</p>
+<p>然后其实不用判断这个数据是否真的是链。。</p>
+<p><del>因为我也写不出来其他部分分了</del></p>
+<p>结合算法1即可。</p>
+<p>但数据奇弱无比，还多过了两个点。。。</p>
+<p>可能就是真正的分类方案最大的真的在最深的两条链上。。</p>
+<p>预计得分：60</p>
+<p>实际得分：70</p>
 
         </div>
         
